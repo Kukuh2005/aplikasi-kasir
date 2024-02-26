@@ -123,6 +123,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin']], function(){
     
     Route::get('/admin/laporan', [TransaksiController::class, 'index']);
     Route::get('/admin/laporan/cari', [TransaksiController::class, 'cari']);
+
+    
     Route::get('/admin/laporan/{dari}/{sampai}/print', [TransaksiController::class, 'printTanggal']);
     Route::get('/admin/laporan/{kodeTransaksi}/print', [TransaksiController::class, 'print']);
     Route::get('/admin/laporan/{kodeTransaksi}', [TransaksiController::class, 'show']);
