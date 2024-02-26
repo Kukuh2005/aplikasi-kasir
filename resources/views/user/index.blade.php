@@ -38,7 +38,12 @@
                                     <td>{{$item->kode}}</td>
                                     <td>{{$item->nama}}</td>
                                     <td>{{$item->email}}</td>
-                                    <td>{{$item->level}}</td>
+                                    @if($item->level == 'admin')
+                                    <td><div class="badge badge-danger">{{$item->level}}</div></td>
+                                    @endif
+                                    @if($item->level == 'kasir')
+                                    <td><div class="badge badge-warning">{{$item->level}}</div></td>
+                                    @endif
                                     <td>
                                         <form action="/{{auth()->user()->level}}/user/{{$item->id}}" id="delete-form">
                                             <a href="/{{auth()->user()->level}}/user/{{$item->id}}/edit"
