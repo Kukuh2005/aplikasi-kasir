@@ -33,7 +33,7 @@
                 <a href="/{{auth()->user()->level}}/laporan" class="nav-link"><i class="fas fa-file"></i><span>Laporan</span></a>
             </li>
             <li class="dropdown">
-                <a href="/{{auth()->user()->level}}/user" class="nav-link"><i class="fas fa-user"></i><span>User</span></a>
+                <a href="/{{auth()->user()->level}}/user" class="nav-link"><i class="fas fa-users"></i><span>User</span></a>
             </li>
             @endif
         </ul>

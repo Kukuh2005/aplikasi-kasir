@@ -134,6 +134,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin']], function(){
     Route::get('/admin/user/{id}/edit', [UserController::class, 'edit']);
     Route::put('/admin/user/{id}', [UserController::class, 'update']);
     Route::get('/admin/user/{id}', [UserController::class, 'destroy']);
+    Route::get('/admin/profile', [UserController::class, 'profile']);
+    Route::put('/admin/profile/{id}/update', [UserController::class, 'updateProfile']);
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:admin,kasir']], function(){
@@ -145,6 +147,9 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin,kasir']], function(){
     Route::get('/kasir/penjualan/{id}', [TransaksiSementaraController::class, 'destroy']);
     Route::get('/kasir/penjualan/hapus/semua', [TransaksiSementaraController::class, 'hapusSemua']);
     Route::get('/kasir/laporan/{kodeTransaksi}/print', [TransaksiController::class, 'print']);
-
+    
     Route::put('/kasir/transaksi-sementara/{id}/{barang_id}/edit', [TransaksiSementaraController::class, 'update']);
+    Route::get('/kasir/profile', [UserController::class, 'profile']);
+    Route::post('/kasir/profile/{id}/update', [UserController::class, 'updateProfile'])->name('profile.update');
+    
 });

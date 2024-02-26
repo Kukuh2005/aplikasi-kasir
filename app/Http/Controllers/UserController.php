@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -103,4 +104,32 @@ class UserController extends Controller
 
         return redirect('/admin/user')->with('sukses', 'Data Berhasil Di Hapus');
     }
+
+    public function profile()
+    {
+        return view('user.profile');
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        $user_route = Auth::user();
+        try {
+            $user = User::findOrFail($id);
+    
+            $user->nama = $request->nama;
+            $user->email = $request->email;
+    
+            // Memeriksa apakah password dimasukkan
+            if ($request->filled('password')) {
+                $user->password = bcrypt($request->password);
+            }
+    
+            $user->save();
+    
+            return redirect('/' . $user_route->level . '/profile')->with('sukses', 'Data Berhasil di Edit');
+        } catch (\Exception $e) {
+            return redirect('/' . $user_route->level . '/profile')->with('gagal', 'Data Tidak Berhasil di Edit. Pesan Kesalahan: ' . $e->getMessage());
+        }
+    }
+    
 }
