@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Feb 2024 pada 14.17
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.1.25
+-- Generation Time: Feb 27, 2024 at 05:12 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `barangs`
+-- Table structure for table `barangs`
 --
 
 CREATE TABLE `barangs` (
@@ -44,7 +44,7 @@ CREATE TABLE `barangs` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -60,7 +60,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategoris`
+-- Table structure for table `kategoris`
 --
 
 CREATE TABLE `kategoris` (
@@ -73,7 +73,7 @@ CREATE TABLE `kategoris` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -83,7 +83,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -101,7 +101,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `password_reset_tokens`
+-- Table structure for table `password_reset_tokens`
 --
 
 CREATE TABLE `password_reset_tokens` (
@@ -113,7 +113,7 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `personal_access_tokens`
+-- Table structure for table `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -132,7 +132,7 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `satuans`
+-- Table structure for table `satuans`
 --
 
 CREATE TABLE `satuans` (
@@ -145,7 +145,7 @@ CREATE TABLE `satuans` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksis`
+-- Table structure for table `transaksis`
 --
 
 CREATE TABLE `transaksis` (
@@ -163,7 +163,7 @@ CREATE TABLE `transaksis` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi_details`
+-- Table structure for table `transaksi_details`
 --
 
 CREATE TABLE `transaksi_details` (
@@ -181,7 +181,7 @@ CREATE TABLE `transaksi_details` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi_sementaras`
+-- Table structure for table `transaksi_sementaras`
 --
 
 CREATE TABLE `transaksi_sementaras` (
@@ -199,13 +199,14 @@ CREATE TABLE `transaksi_sementaras` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `kode` varchar(255) NOT NULL,
   `nama` varchar(255) NOT NULL,
+  `foto` varchar(255) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) NOT NULL,
@@ -220,38 +221,38 @@ CREATE TABLE `users` (
 --
 
 --
--- Indeks untuk tabel `barangs`
+-- Indexes for table `barangs`
 --
 ALTER TABLE `barangs`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indeks untuk tabel `kategoris`
+-- Indexes for table `kategoris`
 --
 ALTER TABLE `kategoris`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `password_reset_tokens`
+-- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indeks untuk tabel `personal_access_tokens`
+-- Indexes for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -259,96 +260,96 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indeks untuk tabel `satuans`
+-- Indexes for table `satuans`
 --
 ALTER TABLE `satuans`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `transaksis`
+-- Indexes for table `transaksis`
 --
 ALTER TABLE `transaksis`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `transaksi_details`
+-- Indexes for table `transaksi_details`
 --
 ALTER TABLE `transaksi_details`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `transaksi_sementaras`
+-- Indexes for table `transaksi_sementaras`
 --
 ALTER TABLE `transaksi_sementaras`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `barangs`
+-- AUTO_INCREMENT for table `barangs`
 --
 ALTER TABLE `barangs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `failed_jobs`
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `kategoris`
+-- AUTO_INCREMENT for table `kategoris`
 --
 ALTER TABLE `kategoris`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `migrations`
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT untuk tabel `personal_access_tokens`
+-- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `satuans`
+-- AUTO_INCREMENT for table `satuans`
 --
 ALTER TABLE `satuans`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `transaksis`
+-- AUTO_INCREMENT for table `transaksis`
 --
 ALTER TABLE `transaksis`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `transaksi_details`
+-- AUTO_INCREMENT for table `transaksi_details`
 --
 ALTER TABLE `transaksi_details`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `transaksi_sementaras`
+-- AUTO_INCREMENT for table `transaksi_sementaras`
 --
 ALTER TABLE `transaksi_sementaras`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
