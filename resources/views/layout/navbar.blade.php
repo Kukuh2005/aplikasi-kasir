@@ -10,7 +10,7 @@
             <!-- <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle mr-1"> -->
             <div class="d-sm-none d-lg-inline-block">{{auth()->user()->nama}}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
-              <a href="/{{auth()->user()->level}}/profile" class="dropdown-item has-icon">
+              <a href="/{{auth()->user()->level}}/profile/{{auth()->user()->id}}" class="dropdown-item has-icon">
                 <i class="fas fa-user"></i> Profile
               </a>
               <div class="dropdown-divider"></div>

@@ -14,7 +14,7 @@
                 <h4 class="text-primary">Edit Data User</h4>
             </div>
             <div class="card-body">
-                <form action="/{{auth()->user()->level}}/user/{{$user->id}}" method="POST">
+                <form action="/{{auth()->user()->level}}/user/{{$user->id}}">
                     @method('PUT')
                     @csrf
                     <div class="row">

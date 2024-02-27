@@ -13,6 +13,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\TransaksiSementaraController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Auth;
 
@@ -134,8 +135,8 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin']], function(){
     Route::get('/admin/user/{id}/edit', [UserController::class, 'edit']);
     Route::put('/admin/user/{id}', [UserController::class, 'update']);
     Route::get('/admin/user/{id}', [UserController::class, 'destroy']);
-    Route::get('/admin/profile', [UserController::class, 'profile']);
-    Route::put('/admin/profile/{id}/update', [UserController::class, 'updateProfile']);
+    Route::get('/admin/profile/{id}', [ProfileController::class, 'edit']);
+    Route::put('/admin/profile/{id}', [ProfileController::class, 'update']);
 });
 
 Route::group(['middleware' => ['auth', 'ceklevel:admin,kasir']], function(){
@@ -149,7 +150,7 @@ Route::group(['middleware' => ['auth', 'ceklevel:admin,kasir']], function(){
     Route::get('/kasir/laporan/{kodeTransaksi}/print', [TransaksiController::class, 'print']);
     
     Route::put('/kasir/transaksi-sementara/{id}/{barang_id}/edit', [TransaksiSementaraController::class, 'update']);
-    Route::get('/kasir/profile', [UserController::class, 'profile']);
-    Route::post('/kasir/profile/{id}/update', [UserController::class, 'updateProfile'])->name('profile.update');
+    Route::get('/kasir/profile/{id}', [ProfileController::class, 'edit']);
+    Route::put('/kasir/profile/{id}', [ProfileController::class, 'update']);
     
 });
