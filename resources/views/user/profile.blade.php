@@ -18,8 +18,12 @@
             <div class="col-12 col-md-12 col-lg-5">
                 <div class="card profile-widget">
                     <div class="profile-widget-header">
-                        <img alt="image" src="{{asset('assets/img/avatar/avatar-1.png')}}"
-                            class="rounded-circle profile-widget-picture">
+                        @if(auth()->user()->foto == null)
+                        <img src="{{asset('assets/img/avatar/avatar-1.png')}}" class="rounded-circle profile-widget-picture">
+                        @endif
+                        @if(auth()->user()->foto != null)
+                        <img alt="image" src="/storage/foto/{{auth()->user()->foto}}" class="rounded-circle profile-widget-picture">
+                        @endif
                     </div>
                     <div class="profile-widget-description">
                         <div class="profile-widget-name">{{auth()->user()->nama}} <div
@@ -34,51 +38,57 @@
                 <div class="card">
                     <form method="post" class="needs-validation" novalidate="">
                         <div class="card-header">
-                            <h4>{{auth()->user()->nama}} Profile</h4>
+                            <h4>Profile</h4>
                         </div>
                         <div class="card-body">
-                            <form action="/{{auth()->user()->level}}/profile/{{auth()->user()->id}}/update" method="POST">
+                            <form action="/{{auth()->user()->level}}/profile/{{auth()->user()->id}}/update" method="POST" enctype="multipart/form-data">
+                                @method('PUT')
                                 @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="kode">Kode</label>
-                                            <input type="text" name="kode" class="form-control"
-                                                value="{{auth()->user()->kode}}" disabled>
+                                            <input type="text" name="kode" class="form-control" value="{{$user->kode}}"
+                                                disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="nama">Nama</label>
-                                            <input type="text" name="nama" class="form-control"
-                                                value="{{auth()->user()->nama}}">
+                                            <input type="text" name="nama" class="form-control" value="{{$user->nama}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="email">Email</label>
                                             <input type="email" name="email" class="form-control"
-                                                value="{{auth()->user()->email}}">
+                                                value="{{$user->email}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                      <div class="form-group">
-                                        <label for="Level">Level</label>
-                                        <input type="text" class="form-control" value="{{auth()->user()->level}}"
-                                        name="level" disabled>
-                                      </div>
+                                        <div class="form-group">
+                                            <label for="Level">Level</label>
+                                            <input type="text" class="form-control" value="{{$user->level}}"
+                                                name="level" disabled>
+                                        </div>
                                     </div>
-                                    <div class="col-md-12 d-none">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="password">Password Baru</label>
                                             <input type="password" name="password" class="form-control"
                                                 placeholder="Opsional">
                                         </div>
                                     </div>
-                                  </div>
-                                  <div class="card-footer text-right d-none">
-                                      <button type="submit" class="btn btn-outline-primary">Simpan</button>
-                                  </div>
+                                    <div class="col-md-12" hidden>
+                                        <div class="form-group">
+                                            <label for="foto">Foto</label>
+                                            <input type="file" class="form-control-file mt-2" name="foto">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-right">
+                                    <button type="submit" class="btn btn-outline-primary">Simpan</button>
+                                </div>
                             </form>
                         </div>
                     </form>
@@ -92,36 +102,6 @@
 
 @push('script')
 <script>
-    $(document).ready(function () {
-        $('#table').DataTable();
-    });
-
-    var data_anggota = $(this).attr('data-id')
-
-    function confirmDelete(button) {
-
-        event.preventDefault()
-        const id = button.getAttribute('data-id');
-        const kode = button.getAttribute('id');
-        swal({
-                title: 'Apa Anda Yakin ?',
-                text: 'Anda akan menghapus data: "' + kode +
-                    '". Ketika Anda tekan OK, maka data tidak dapat dikembalikan !',
-                icon: 'warning',
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    const form = document.getElementById('delete-form');
-                    // Setelah pengguna mengkonfirmasi penghapusan, Anda bisa mengirim form ke server
-                    form.action = '/{{auth()->user()->level}}/user/' +
-                    id; // Ubah aksi form sesuai dengan ID yang sesuai
-                    form.submit();
-                }
-            });
-    }
-
     // Ambil referensi ke elemen input password
     const passwordInput = document.getElementById('password');
 

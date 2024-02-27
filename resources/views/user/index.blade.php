@@ -39,10 +39,9 @@
                                     <td>{{$item->nama}}</td>
                                     <td>{{$item->email}}</td>
                                     @if($item->level == 'admin')
-                                    <td><div class="badge badge-danger">{{$item->level}}</div></td>
-                                    @endif
-                                    @if($item->level == 'kasir')
-                                    <td><div class="badge badge-warning">{{$item->level}}</div></td>
+                                    <td><div class="badge badge-success">Admin</div></td>
+                                    @elseif($item->level == 'kasir')
+                                    <td><div class="badge badge-info">Kasir</div></td>
                                     @endif
                                     <td>
                                         <form action="/{{auth()->user()->level}}/user/{{$item->id}}" id="delete-form">
