@@ -79,7 +79,7 @@
                                                 placeholder="Opsional">
                                         </div>
                                     </div>
-                                    <div class="col-md-12" hidden>
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="foto">Foto</label>
                                             <input type="file" class="form-control-file mt-2" name="foto">
