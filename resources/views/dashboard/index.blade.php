@@ -15,7 +15,7 @@
     @if(auth()->user()->level=='admin')
     <div class="section-body">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-info">
                         <i class="fas fa-box"></i>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1" id="stokCard">
                     <div class="card-icon bg-info">
                         <i class="fas fa-boxes"></i>
@@ -46,22 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                <div class="card card-statistic-1">
-                    <div class="card-icon bg-info">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <div class="card-wrap">
-                        <div class="card-header">
-                            <h4> Total Transaksi</h4>
-                        </div>
-                        <div class="card-body">
-                            {{$transaksi->count()}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12">
                 <div class="card card-statistic-1">
                     <div class="card-icon bg-info">
                         <i class="fas fa-shopping-cart"></i>
@@ -76,40 +61,54 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-12">
-                <div class="card shadow mb-4">
-                    <div class="card-header bg-white">
-                        <h4 class="text-info">Detail Transaksi</h4>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-info">
+                        <i class="fas fa-shopping-cart"></i>
                     </div>
-                    <div class="card-body p-2">
-                        <table class="table table-hover" id="table">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>Kode transaksi</th>
-                                    <th>Nama</th>
-                                    <th>Harga</th>
-                                    <th>Jumlah</th>
-                                    <th>Diskon</th>
-                                    <th>Total</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($detail as $item)
-                                <tr>
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->kode_transaksi}}</td>
-                                    <td>{{$item->barang}}</td>
-                                    <td>{{$item->formatRupiah('harga')}}</td>
-                                    <td>{{$item->jumlah}}</td>
-                                    <td>{{$item->diskon}}%</td>
-                                    <td>{{$item->formatRupiah('total')}}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4>Transaksi Bulan {{$bulan_ini}}</h4>
+                        </div>
+                        <div class="card-body">
+                            {{$transaksi_bulan_ini->count()}}
+                        </div>
                     </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                <div class="card card-statistic-1">
+                    <div class="card-icon bg-info">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="card-wrap">
+                        <div class="card-header">
+                            <h4> Omset {{$tahun}}</h4>
+                        </div>
+                        <div class="card-body">
+                            Rp{{number_format($omset, 0, ',', '.')}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Transaksi Tahun {{$tahun}}</h4>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="transaksi-tahun"></canvas>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Barang Terlaris</h4>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="barang-laris"></canvas>
+                  </div>
                 </div>
             </div>
         </div>
@@ -150,5 +149,85 @@
     if (stockCount > 0) {
         setInterval(changeBackgroundColor, 300); // Call the function every second
     }
+
+    var ctx = document.getElementById("transaksi-tahun").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: <?php echo json_encode($bulan); ?>,
+        datasets: [{
+        label: 'Statistics',
+        data: <?php echo json_encode($total); ?>,
+        borderWidth: 2,
+        backgroundColor: '#7fff00',
+        borderColor: '#7fff00',
+        borderWidth: 2.5,
+        pointBackgroundColor: '#7fff00',
+        pointRadius: 4
+        }]
+    },
+    options: {
+        legend: {
+        display: false
+        },
+        scales: {
+        yAxes: [{
+            gridLines: {
+            drawBorder: false,
+            color: '#f2f2f2',
+            },
+            ticks: {
+            beginAtZero: true,
+                callback: function(value, index, values) {
+                return value.toLocaleString('id-ID'); // Format Rupiah
+                }
+            }
+        }],
+        xAxes: [{
+            ticks: {
+            display: false
+            },
+            gridLines: {
+            display: false
+            }
+        }]
+        },
+    }
+    });
+
+    var ctx = document.getElementById("barang-laris").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        datasets: [{
+        data: <?php echo json_encode($data_barang) ?>,
+        backgroundColor: [
+            '#00ffff',  /* Cyan cerah */
+            '#ee82ee',  /* Violet cerah */
+            '#ff7eb3',  /* Pink cerah */
+            '#ffd700',  /* Kuning cerah */
+            '#7fff00',  /* Hijau limau */
+            '#00ff7f',  /* Hijau musim semi cerah */
+            '#1e90ff',  /* Biru dodger cerah */
+            '#ff6347',  /* Merah tomat cerah */
+            '#ff4500',  /* Oranye merah cerah */
+            '#ff1493',  /* Merah muda dalam cerah */
+            '#00fa9a',  /* Hijau laut cerah */
+            '#adff2f',  /* Hijau kekuningan cerah */
+            '#ff69b4',  /* Merah muda cerah */
+            '#ffff54',  /* Kuning pastel cerah */
+            '#40e0d0',  /* Turquoise cerah */
+        ],
+        label: 'Dataset 1'
+        }],
+        labels: <?php echo json_encode($label_barang) ?>,
+    },
+    options: {
+        responsive: true,
+        legend: {
+        position: 'bottom',
+        },
+    }
+    });
 </script>
 @endpush
