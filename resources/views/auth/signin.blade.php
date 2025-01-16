@@ -76,12 +76,8 @@
 
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label class="control-label text-info" for="Level">Level</label>
-                                                <select class="custom-select" name="level" id="">
-                                                    <option value="">Pilih Level...</option>
-                                                    <option value="admin">Admin</option>
-                                                    <option value="kasir">Kasir</option>
-                                                </select>
+                                                <label class="control-label text-info" for="Level">Ulangi Password</label>
+                                                <input type="password" class="form-control" placeholder="Masukkan Ulang Password" name="ulang_password">
                                             </div>
                                         </div>
                                     </div>

@@ -20,6 +20,9 @@ class AuthController extends Controller
     public function store(Request $request)
     {
         try{
+            if($request->password !== $request->ulang_password){
+                return back()->with('status', 'Passwors Tidak Sama!');
+            }
             $now = Carbon::now();
             $tahun_bulan = $now->year . $now->month;
             $cek = User::count();
@@ -37,21 +40,30 @@ class AuthController extends Controller
                 'nama' => 'required|string|max:255',
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string',
-                'level' => 'required|string',
             ]);
+
+            $level = $this->cekEmail($request->email);
     
             $user = new User;
             $user->kode = $kode;
             $user->nama = $request->nama;
             $user->email = $request->email;
             $user->password = bcrypt($request->password);
-            $user->level = $request->level;
+            $user->level = $level;
             $user->save();
     
     
             return redirect('login')->with('sukses', 'Berhasil Daftar, Silahkan Login!');
         }catch(\Exception $e){
             return redirect('daftar')->with('status', 'Tidak Berhasil Daftar. Pesan Kesalahan: '.$e->getMessage());
+        }
+    }
+
+    private function cekEmail($email){
+        if(strpos($email, '@admin.com') !== false){
+            return 'admin';
+        }else{
+            return 'kasir';
         }
     }
 
